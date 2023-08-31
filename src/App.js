@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import {Routes, Route} from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(false);
+
+  if(token){
+    sessionStorage.setItem('token',JSON.stringify(token))
+  }
+
+  useEffect(()=>{
+
+    if(sessionStorage.getItem('token')){
+      setToken(JSON.parse(sessionStorage.getItem('token')))
+    }
+  },[])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div>
+      <Routes>
+        <Route path={'/'} element={<Signup/>}/>
+        <Route path={'/login'} element={<Login setToken={setToken}/>}/>
+        {token?<Route path={'/homepage'} element={<Home token={token}/>}/>:''}
+      </Routes>
+      </div>)
 }
 
 export default App;
