@@ -42,6 +42,5 @@
     ]
   },
   "devDependencies": {
-    "@types/webpack-env": "^1.18.1",
-    "typescript": "^5.2.2"
+    "@types/webpack-env": "^1.18.1"
   }}
